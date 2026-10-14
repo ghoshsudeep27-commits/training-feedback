@@ -2027,6 +2027,9 @@ window.HS = (function () {
     }
     if(cfg.googleFormUrl){
       var q=new URLSearchParams();
+      /* Forms with more than one section require pageHistory, or Google drops the
+         later sections' answers silently. */
+      if(cfg.googlePageHistory) q.append("pageHistory", cfg.googlePageHistory);
       Object.keys(data).forEach(function(k){
         var e=cfg.googleEntries[k], v=data[k];
         if(e && v!==undefined && v!==null && (""+v).trim()!=="") q.append(e,(""+v).trim());
@@ -2047,6 +2050,7 @@ window.HS = (function () {
     appsScriptUrl: "",
     googleFormUrl: "https://docs.google.com/forms/d/e/1FAIpQLSexT4FRndfosN7O_84J1g-v-bn04hNdAGpfOr3dY36FnVRCQg/formResponse",
     googleFormViewUrl: "https://docs.google.com/forms/d/e/1FAIpQLSexT4FRndfosN7O_84J1g-v-bn04hNdAGpfOr3dY36FnVRCQg/viewform",
+    googlePageHistory: "0,1",
     googleEntries: {
       full_name:"entry.2077086595", email:"entry.1988144231", contact_number:"entry.659101724", programme:"entry.1975432957", programme_other:"",
       training_start:"entry.507919200", training_end:"entry.1473744485", rating_overall:"entry.1359018079", rating_content:"entry.323256985",
